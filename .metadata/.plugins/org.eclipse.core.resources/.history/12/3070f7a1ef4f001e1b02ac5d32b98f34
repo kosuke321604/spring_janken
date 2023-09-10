@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>じゃんけん入力の画面</title>
+</head>
+
+<body>
+	<h2>じゃんけんの手を入力してください</h2>
+
+	<form method="post" th:action="@{/create}"  th:objects="${jankenRegisterForm}" enctype="multipart/form-data">
+		<label for="gu">グー</label>
+		<input id="gu" type="radio" name="janken" th:field="*{jankenMyself}" value="0" /> <br>
+		<label for="cu">チョキ</label>
+		<input id="cu" type="radio" name="janken" th:field="*{jankenMyself}"value="1" /> <br>
+		<label for="pa">パー</label>
+		<input id="pa" type="radio" name="janken" th:field="*{jankenMyself}"value="2" /> <br>
+		<input type="submit" value="ぽん" />
+	</form>
+</body>
+
+</html>

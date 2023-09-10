@@ -1,0 +1,9 @@
+package com.example.janken.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.janken.entity.jankenHouse;
+
+public class jankenHouseRepository {
+
+}

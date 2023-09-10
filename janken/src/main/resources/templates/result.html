@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>じゃんけんの結果</title>
+</head>
+
+<body>
+	<h1>じゃんけんのこれまでの結果は以下です。</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">自分の手</th>
+				<th scope="col">PCの手</th>
+				<th scope="col">結果</th>
+				<th scope="col">メモ</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="jankenHouse : ${jankenHouse}">
+				<td th:text="${jankenHouse.getId}"></td>
+				<td th:text="${jankenHouse.getJankenMyself()}"></td>
+				<td th:text="${jankenHouse.getJankenPc()}"></td>
+				<td th:text="${jankenHouse.getResult()}"></td>
+				<td th:text="${jankenHouse.getMemo()}"></td>
+			
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+
+</html>

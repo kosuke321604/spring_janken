@@ -1,0 +1,61 @@
+package com.example.janken.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.janken.entitity.JankenHouse;
+import com.example.janken.form.JankenRegisterForm;
+import com.example.janken.repository.JankenHouseRepository;
+import com.example.janken.service.JankenService;
+
+@Controller
+@RequestMapping("/admin/janken")
+public class JankenController {
+	private final JankenHouseRepository jankenHouseRepository;
+	private final JankenService jankenService;
+	public JankenController(JankenHouseRepository jankenHouseRepository,JankenService jankenService) {
+		this.jankenHouseRepository = jankenHouseRepository;
+		this.jankenService = jankenService;
+	}
+	
+	
+	
+	@GetMapping("/")
+    public String index() {
+        return "index";
+    }   
+	
+	
+	
+	@GetMapping("/register")
+	public String resister(Model model) {
+		model.addAttribute("jankenRegisterForm",new JankenRegisterForm());
+		return "admin/janken/register";
+	}
+	
+	@PostMapping("/create")
+	public String create(@ModelAttribute@Validated JankenRegisterForm jankenRegisterForm,BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		jankenService.create(jankenRegisterForm);
+		
+		return "redirect:/admin/janken/result";
+	}
+
+	
+	@GetMapping("/result")
+    public String result(Model model) {
+        List<JankenHouse> jankenHouse = jankenHouseRepository.findAll();       
+        
+        model.addAttribute("jankenHouse", jankenHouse);             
+        
+        return "admin/janken/result";
+    }  
+}

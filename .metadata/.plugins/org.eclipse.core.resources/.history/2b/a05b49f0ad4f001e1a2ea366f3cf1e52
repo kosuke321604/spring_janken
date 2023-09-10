@@ -1,0 +1,5 @@
+package com.example.janken.repository;
+
+public class jankenHouseRepository {
+
+}

@@ -1,0 +1,63 @@
+package com.example.janken.service;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.janken.entitity.JankenHouse;
+import com.example.janken.form.JankenRegisterForm;
+import com.example.janken.repository.JankenHouseRepository;
+
+
+@Service
+public class JankenService {
+	private final JankenHouseRepository jankenRepository;
+	public JankenService(JankenHouseRepository jankenRepository) {
+		this.jankenRepository = jankenRepository;
+	}
+	
+	@Transactional
+	public void create(JankenRegisterForm jankenRegisterForm) {
+		JankenHouse jankenHouse = new JankenHouse();
+		int myselfResult = Integer.parseInt(jankenRegisterForm.getJankenMyself());
+		Random random = new Random();
+	    int randomvalue = random.nextInt(3);
+	    int pcResult= randomvalue;
+	    
+	    //じゃんけんの手のコードに対応する名称をhashmapで格納
+	    Map<Integer,String>pattern = new HashMap<Integer,String>();
+	    pattern.put(0, "グー");
+	    pattern.put(1, "チョキ");
+	    pattern.put(2, "パー");
+	    
+		//じゃんけん結果を判定
+	    //0:グー、1:チョキ、2：パー
+        String result;
+	    
+	    int jankenResult = myselfResult - pcResult;  
+	    if(jankenResult ==-1||jankenResult==2) {
+	    	result = "勝ち";
+	    	
+	    }else if(jankenResult ==1||jankenResult==-2){
+	    	result = "負け";	    	
+	    	
+	    }else {
+	    	result = "引き分け";	    		    	
+	    	
+	    }
+		
+	    jankenHouse.setJankenMyself(pattern.get(myselfResult));
+	    jankenHouse.setJankenPc(pattern.get(pcResult));
+	    jankenHouse.setResult(result);
+	    
+	    jankenRepository.save(jankenHouse);	    
+	    
+	    
+	
+	}
+	
+
+}

@@ -1,0 +1,27 @@
+package com.example.janken.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.janken.entitity.JankenHouse;
+import com.example.janken.form.JankenRegisterForm;
+import com.example.janken.repository.JankenHouseRepository;
+
+
+@Service
+public class JankenService {
+	private final JankenHouseRepository jankenRepository;
+	public JankenService(JankenHouseRepository jankenRepository) {
+		this.jankenRepository = jankenRepository;
+	}
+	
+	@Transactional
+	public void create(JankenRegisterForm jankenRegisterForm) {
+		JankenHouse jankenHouse = new JankenHouse();
+		jankenRegisterForm.getJankenMyself();
+		
+	
+	}
+	
+
+}

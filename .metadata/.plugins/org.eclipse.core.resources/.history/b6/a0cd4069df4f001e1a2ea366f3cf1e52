@@ -1,0 +1,18 @@
+package com.example.janken.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.janken.form.JankenRegisterForm;
+
+@Controller
+public class JankenController {
+	
+	@GetMapping("/")
+	public String index(Model model) {
+		model.addAttribute("jankenRegisterForm",new JankenRegisterForm());
+		return "index";
+	}
+
+}
